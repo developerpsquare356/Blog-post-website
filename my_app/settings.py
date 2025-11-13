@@ -10,13 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from pathlib import Path
 
+from pathlib import Path
+import os
 from django.conf.global_settings import STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL, CSRF_TRUSTED_ORIGINS, EMAIL_BACKEND, \
     EMAIL_HOST, EMAIL_USE_TLS, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -25,9 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY ="django-insecure-nygvsqjl7pd7&x7pgwr&)v+zxxbi5(*lx5gm=qknt#vcosrvwg"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['blog-post-website-cb97.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 
@@ -51,6 +55,7 @@ INSTALLED_APPS+=EXTERNAL_APP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 ROOT_URLCONF = 'my_app.urls'
 
@@ -123,16 +130,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-import os
+
+
+
+
 STATIC_URL = '/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 
-STATICFILES_DIR={os.path.join(BASE_DIR,"public/static")}
+STATICFILES_DIR={os.path.join(BASE_DIR,"demo/static")}
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'public/static')
 MEDIA_URL='/media/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -146,6 +155,23 @@ EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST_USER="developerpsquare356@gmail.com"
 EMAIL_HOST_PASSWORD="tnkowxxvbalzxdql"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
