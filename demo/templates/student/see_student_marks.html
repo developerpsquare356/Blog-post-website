@@ -1,0 +1,32 @@
+{% extends "header.html" %}
+{% block title %}Student Data{% endblock%}
+{% block content %}
+
+
+<div class="container mt-5">
+<h1>Student Name : {{data.first.student.student_name}}</h1><br>
+<h2>Rank : {{data.first.student_rank}}</h2>
+<h2>Total : {{data.first.total_marks}} out of 700</h2>
+<h2>Date of Report Card : {{data.first.date_of_report_card}}</h2>
+<table class="table table-striped">
+<thead>
+    <tr>
+      <th scope="col">#</th>
+        <th scope="col">SUBJECTS</th>
+      <th scope="col">Marks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for marks in queryset %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ marks.subject.subject_name }}</td>
+        <td>{{ marks.marks }}</td>
+
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% endblock %}

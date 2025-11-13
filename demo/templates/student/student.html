@@ -1,0 +1,57 @@
+{% extends "header.html" %}
+{% block title %}Student Data{% endblock%}
+{% block content %}
+
+<div class="container mt-5">
+<form class="mb-4">
+        <nav class="navbar bg-body-tertiary">
+          <div class="container-fluid mt-5">
+            <form class="d-flex " role="search">
+              <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-outline-success" type="submit">Search</button>
+                <button type="button" class="btn btn-primary"><a href="{% url 'get_student_data' %}">Send Email</a></button>
+            </form>
+          </div>
+        </nav>
+</form>
+
+<table class="table table-striped">
+
+  <tbody>
+  {% for student in queryset %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+        <td><a href="{% url 'see_student_mark' student.student_id.student_id %}">
+        {{ student.student_id.student_id }}</a></td>
+      <td>{{ student.student_name }}</td>
+      <td>{{ student.department.department }}</td>
+      <td>{{ student.student_email }}</td>
+        <td>{{ student.student_age }}</td>
+        <td>{{ student.student_address }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+
+<ul class="pagination">
+
+        {% if queryset.has_previous %}
+            <li class="page-item"><a href="?page=1">&laquo; first</a></li>
+            <li class="page-item"><a href="?page={{ queryset.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+        </span>
+
+        {% if queryset.has_next %}
+            <li class="page-item mb-4"><a href="?page={{ queryset.next_page_number }}">Next</a></li>
+            <li class="page-item"><a href="?page={{ queryset.paginator.num_pages }}">last &raquo;</a></li>
+        {% endif %}
+</ul>
+</nav>
+
+</div>
+{% endblock %}

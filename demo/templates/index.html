@@ -1,0 +1,49 @@
+{% extends "header.html" %}
+{% block title %}Clean Blog - Start Bootstrap Theme{% endblock%}
+{% block content %}
+        <!-- Page Header-->
+<header class="masthead" style="background-image: url('../static/assets/img/home-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center" >
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Prantik Blog</h1>
+                            <span class="subheading">A collection of Prantik random musings.</span>
+                            <span class="subheading">You Can also Create your own Blog and Show it to People.</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mb-4 mt-5" ><a class="btn btn-primary text-uppercase rounded" href="/AddBlog/">Create A Blog</a></div>
+
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {% for post in post_data %}
+                    <!-- Post preview-->
+                    <div class="post-preview">
+
+                        <a href="{% url 'post_page' post.id %}">
+                            <h2 class="post-title">{{post.Title}}</h2>
+                            <h3 class="post-subtitle">{{post.Subtitle}}</h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by
+                            <a href="{% url 'post_page' post.id %}">{{post.AuthorName}}</a>
+                            on {{post.Date}}
+                        </p>
+                    </div>
+                    <div class="d-flex justify-content-center mb-4 " ><a class="btn btn-primary text-uppercase rounded" href="{% url 'update_blog' post.id %}">Update a Blog</a></div>
+
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    {% endfor %}
+                    <!-- Pager-->
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
