@@ -17,9 +17,14 @@ from django.db.models import Q ,Sum
 
 
 
+@login_required(login_url='/login/')
 def home(request):
     post=AddBlogs.objects.all()
-    return render(request,"index.html",context={"post_data":post})
+    if request.user.is_authenticated:
+        authentication=True
+    else:
+        authentication=False
+    return render(request,"index.html",context={"post_data":post,"authentication":authentication})
 
 
 def about_page(request):
